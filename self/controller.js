@@ -1,21 +1,23 @@
 'use strict'
 
+let items
+
 export default class{
-    constructor($doc){
-        this.$doc = $doc
-        let $input = $doc.querySelector("#new-todo")
-        this.$list = $doc.querySelector("#list")
-        $input.addEventListener("change", this.onChangeInput.bind(this))
+    constructor(view){
+        this.view = view
+
+/*        items = this.getItems()
+        view.renderItems(items)
+*/
+        view.registerAddItemHandler(this.onAddItem.bind(this))
+
     }
 
-    onChangeInput(ev){
-        let $li = this.$doc.createElement("li")
-        $li.innerText = ev.target.value
-        this.$list.appendChild($li)
-        $li.addEventListener("click", this.onClickLi.bind(this))
+    onAddItem(item){
+        // save to db
+        // render item in view
+        console.log(item)
+        this.view.addItem(item)
     }
 
-    onClickLi(ev){
-        this.$list.removeChild(ev.target)
-    }
 }
